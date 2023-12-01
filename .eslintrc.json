@@ -1,0 +1,25 @@
+{
+    "root": true,
+    "extends": ["next/core-web-vitals", "eslint:recommended", "prettier"],
+    "plugins": ["simple-import-sort"],
+    "rules": {
+        "no-var": "error",
+        "prefer-const": "error",
+        "no-else-return": "warn",
+        "simple-import-sort/imports": [
+            "error",
+            {
+                "groups": [
+                    ["^react$", "^next", "^react", "^@mantine", "^W*", "@(?!(app|components|core|styles|public))"],
+                    ["^@app"],
+                    ["^@components"],
+                    ["^@core"],
+                    ["^@styles"],
+                    ["^@public"],
+                    ["^\\u0000"],
+                    ["^\\./", "^\\../"]
+                ]
+            }
+        ]
+    }
+}
