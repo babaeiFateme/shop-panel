@@ -1,0 +1,15 @@
+import { Burger } from '@mantine/core'
+
+const DBurger = ({ children, className = '', classNames, ...rest }) => {
+    /**
+     * Combining className and classNames to establish a consistent and reusable base style for the component across the project.
+     * We can overwrite its style in specific situations for fine-tuned adjustments.
+     */
+    return (
+        <Burger className={`AddYourDefaultStylesHere ${className}`} classNames={{ ...classNames }} {...rest}>
+            {children}
+        </Burger>
+    )
+}
+
+export default DBurger

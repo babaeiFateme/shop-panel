@@ -1,0 +1,5 @@
+/* style close button (icon) of mantine */
+.mantine-rtl-UnstyledButton-root.mantine-rtl-ActionIcon-root.mantine-rtl-CloseButton-root.mantine-rtl-Modal-close svg{
+    @apply !w-10 !h-10 !text-black !scale-125
+
+}
