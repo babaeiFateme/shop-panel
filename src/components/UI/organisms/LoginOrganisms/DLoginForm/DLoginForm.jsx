@@ -31,9 +31,11 @@ const DLoginForm = () => {
         mutationFn: (data) => loginHttp(data),
         onSuccess: (response) => {
             console.log(response);
-            setCookie("token", response.data.access_token);
-            toast.success("You are login.");
-            router.push("/dashboard");
+            if (response.status == 201) {
+                setCookie("token", response.data.access_token);
+                toast.success("You are login.");
+                router.push("/dashboard");
+            }
         },
         onError: (error) => {
             console.log(error);

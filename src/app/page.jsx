@@ -4,16 +4,17 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getCookie } from "cookies-next";
 const RootPage = () => {
-    const router = useRouter();
+    const { push } = useRouter();
 
     useEffect(() => {
+        console.log(555555);
         console.log(getCookie("token"));
         if (getCookie("token")) {
             console.log("wwww");
-            router.push("/dashboard");
+            push("/dashboard");
         } else {
             console.log(65);
-            router.push("/login");
+            push("/login");
         }
     }, [getCookie("token")]);
 
