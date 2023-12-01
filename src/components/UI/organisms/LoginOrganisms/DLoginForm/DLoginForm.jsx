@@ -30,10 +30,10 @@ const DLoginForm = () => {
     const { isLoding, mutate } = useMutation({
         mutationFn: (data) => loginHttp(data),
         onSuccess: (response) => {
-            console.log(router);
+            console.log(response);
             setCookie("token", response.data.access_token);
             toast.success("You are login.");
-            // router.push("/dashboard");
+            router.push("/dashboard");
         },
         onError: (error) => {
             console.log(error);

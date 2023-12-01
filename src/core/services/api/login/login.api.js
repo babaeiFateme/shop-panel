@@ -3,6 +3,7 @@ import { BASE_URL, Http } from "@core/services/fetch-api";
 const loginHttp = async (data) => {
     try {
         const response = await Http.post(`${BASE_URL}/auth/login`, data);
+        console.log(response);
         if (response.status == 201) {
             return response;
         }

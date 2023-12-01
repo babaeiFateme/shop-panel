@@ -1,7 +1,7 @@
 'use client'
 const DDashboardHeader = () => {
   return (
-    <div>DDashboardHeader</div>
+    <div className="bg-red-500">DDashboardHeader</div>
   )
 }
 

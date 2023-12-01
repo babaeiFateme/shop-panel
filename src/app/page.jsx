@@ -7,16 +7,15 @@ const RootPage = () => {
     const router = useRouter();
 
     useEffect(() => {
-        //check if there is token in cookie
+        console.log(getCookie("token"));
         if (getCookie("token")) {
-            console.log("hjjgygy");
-            //redirect to dashboard
+            console.log("wwww");
             router.push("/dashboard");
         } else {
-            //redirect to login of user
-            push("/login");
+            console.log(65);
+            router.push("/login");
         }
-    }, []);
+    }, [getCookie("token")]);
 
     return <></>;
 };

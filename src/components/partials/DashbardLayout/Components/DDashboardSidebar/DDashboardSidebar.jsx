@@ -1,6 +1,6 @@
-'use client'
+"use client";
 const DDashboardSidebar = () => {
-    return <div>DDashboardSidebar</div>;
+    return <div class="bg-green-500">DDashboardSidebar</div>;
 };
 
 export default DDashboardSidebar;
