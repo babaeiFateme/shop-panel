@@ -1,7 +1,3 @@
-import Svg404 from './404.svg'
-import Logo from './logo.png'
-import SvgLooking from './looking.svg'
-import SvgRecycle from './recycle.svg'
-import SvgTicket from './ticket.svg'
+import avatar from './avatar3.png'
 
-export { Logo, Svg404, SvgLooking, SvgRecycle, SvgTicket }
+export { avatar }

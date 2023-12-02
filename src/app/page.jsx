@@ -7,13 +7,9 @@ const RootPage = () => {
     const { push } = useRouter()
 
     useEffect(() => {
-        console.log(555555)
-        console.log(getCookie('token'), 'token')
-        if (getCookie('token') != undefined) {
-            console.log('wwww')
+        if (getCookie('token')) {
             push('/dashboard')
         } else {
-            console.log(65)
             push('/login')
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
