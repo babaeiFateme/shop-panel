@@ -8,7 +8,7 @@ const DashboardLayout = ({ children }) => {
             <DDashboardHeader className='h-[150px]' />
             <div className='flex grow h-[calc(100%-150px)] gap-x-4'>
                 <DDashboardSidebar />
-                <main className='grow py-10 px-4'>{children}</main>
+                <main className='h-auto py-10 px-4'>{children}</main>
             </div>
         </div>
     )

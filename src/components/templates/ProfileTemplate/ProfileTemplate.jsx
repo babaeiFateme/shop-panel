@@ -1,44 +1,47 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-import { FaArrowRightFromBracket } from 'react-icons/fa6'
-import { deleteCookie } from 'cookies-next'
+import { useState } from 'react'
+import Image from 'next/image'
+import { useQuery } from 'react-query'
 
-import { DButton } from '@components/UI/atoms/client'
-import { DChangePhoneNumber, DProfileDetail } from '@components/UI/organisms/ProfileOrganisms'
-
-import { useUserStore } from '@core/services/state-management'
+import { profileHttp } from '@core/services/api'
 
 const ProfileTemplate = () => {
-    const { push } = useRouter()
-    const { removeUser } = useUserStore()
+    const [profileInfo, setProfileInfo] = useState({})
 
-    const onLogOutHandler = () => {
-        //remove token
-        deleteCookie('token')
-        deleteCookie('hash')
-        deleteCookie('cell_phone')
-
-        //remove user's data from zustand
-        removeUser()
-
-        //redirect user to signin page
-        push('/signin')
-    }
-
+    const responseHttp = useQuery({
+        queryFn: (token) => profileHttp(token),
+        onSuccess: (response) => {
+            console.log(response)
+            if (response.status == 200) {
+                console.log(response.data)
+                setProfileInfo(response?.data)
+                console.log(profileInfo)
+            }
+        },
+        onError: (error) => {
+            console.log(error)
+        },
+    })
     return (
-        <div className='space-y-5'>
-            <DProfileDetail />
-            <DChangePhoneNumber />
-            <DButton
-                onClick={onLogOutHandler}
-                leftIcon={<FaArrowRightFromBracket />}
-                variant='outline'
-                color='red'
-                className='w-full py-4 h-auto lg:hidden'
-            >
-                خروج از حساب
-            </DButton>
+        <div className=''>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-5'>
+                {profileInfo && (
+                    <>
+                        <div className='bg-red-500'>
+                            <Image src={profileInfo.avatar} alt='profile' width={150} height={150} className='w-full' />
+                        </div>
+                        <div className='bg-red-500 p-3'>
+                            <ul>
+                                <li>{profileInfo.name}</li>
+                                <li>{profileInfo.role}</li>
+                                <li>{profileInfo.email}</li>
+                                <li>{profileInfo.password}</li>
+                            </ul>
+                        </div>
+                    </>
+                )}
+            </div>
         </div>
     )
 }
