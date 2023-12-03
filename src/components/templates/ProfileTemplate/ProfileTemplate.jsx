@@ -1,49 +1,124 @@
 'use client'
 
-import { useState } from 'react'
 import Image from 'next/image'
+import { Controller, useForm } from 'react-hook-form'
 import { useQuery } from 'react-query'
+import { toast } from 'react-toastify'
+import { yupResolver } from '@hookform/resolvers/yup'
+
+import { DButton, DPasswordInput, DTextInput } from '@components/UI/atoms/client'
+import { DInputField } from '@components/UI/molecules/client'
 
 import { profileHttp } from '@core/services/api'
-
+import { profileValidation } from '@core/utils'
 const ProfileTemplate = () => {
-    const [profileInfo, setProfileInfo] = useState({})
+    const {
+        handleSubmit,
+        control,
+        formState: { errors },
+    } = useForm({
+        resolver: yupResolver(profileValidation),
+    })
 
-    const responseHttp = useQuery({
+    const { data: profileInfo, isSuccess } = useQuery({
         queryFn: (token) => profileHttp(token),
-        onSuccess: (response) => {
-            console.log(response)
-            if (response.status == 200) {
-                console.log(response.data)
-                setProfileInfo(response?.data)
-                console.log(profileInfo)
-            }
-        },
         onError: (error) => {
             console.log(error)
         },
     })
-    return (
-        <div className=''>
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-5'>
-                {profileInfo && (
-                    <>
-                        <div className='bg-red-500'>
-                            <Image src={profileInfo.avatar} alt='profile' width={150} height={150} className='w-full' />
-                        </div>
-                        <div className='bg-red-500 p-3'>
-                            <ul>
-                                <li>{profileInfo.name}</li>
-                                <li>{profileInfo.role}</li>
-                                <li>{profileInfo.email}</li>
-                                <li>{profileInfo.password}</li>
-                            </ul>
-                        </div>
-                    </>
-                )}
+    
+    const onSubmit = () => {
+        toast.success('edit profile')
+    }
+
+    if (isSuccess)
+        return (
+            <div className='h-auto'>
+                <div className='flex flex-col md:flex-row flex-wrap gap-5'>
+                    <Image
+                        src={profileInfo.data.avatar}
+                        alt='profile'
+                        width={300}
+                        height={300}
+                        className='w-full max-w-[300px] h-auto rounded-lg block'
+                    />
+
+                    <div className='p-3 grow'>
+                        <ul className='font-semibold'>
+                            <li className='flex flex-wrap gap-1 mb-5'>
+                                <span className='text-gray-300 text-xl'>Name:</span>
+                                <span className='text-xl'>{profileInfo?.data.name}</span>
+                            </li>
+                            <li className='flex flex-wrap gap-1 mb-5'>
+                                <span className='text-gray-300 text-xl'>Role:</span>
+                                <span className='text-xl'>{profileInfo?.data.role}</span>
+                            </li>
+                            <li className='flex flex-wrap gap-1 mb-5'>
+                                <span className='text-gray-300 text-xl'>Email:</span>
+                                <span className='text-xl'>{profileInfo?.data.email}</span>
+                            </li>
+                            <li className='flex flex-wrap gap-1 mb-5'>
+                                <span className='text-gray-300 text-xl'>Password:</span>
+                                <span className='text-xl'>{profileInfo?.data.password}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div className='mt-8'>
+                    <form onSubmit={handleSubmit(onSubmit)} className='grid grid-cols-1 md:grid-cols-2 gap-2'>
+                        <DInputField defaultValue={profileInfo?.data?.name} errors={errors} fieldName={'fname'}>
+                            <Controller
+                                name={'fname'}
+                                control={control}
+                                defaultValue={profileInfo?.data.name}
+                                render={({ field }) => <DTextInput withAsterisk label={'Name'} {...field} />}
+                            />
+                        </DInputField>
+                        <DInputField defaultValue={profileInfo?.data?.role} errors={errors} fieldName={'role'}>
+                            <Controller
+                                name={'role'}
+                                control={control}
+                                defaultValue={profileInfo?.data.role}
+                                render={({ field }) => <DTextInput label={'Role'} withAsterisk {...field} />}
+                            />
+                        </DInputField>
+                        <DInputField defaultValue={profileInfo?.data?.email} errors={errors} fieldName={'email'}>
+                            <Controller
+                                name={'email'}
+                                control={control}
+                                render={({ field: { name, onChange, value } }) => (
+                                    <DTextInput
+                                        name={name}
+                                        label={'Email'}
+                                        withAsterisk
+                                        onChange={onChange}
+                                        value={value}
+                                    />
+                                )}
+                            />
+                        </DInputField>
+                        <DInputField defaultValue={profileInfo?.data?.password} errors={errors} fieldName={'password'}>
+                            <Controller
+                                name={'password'}
+                                control={control}
+                                render={({ field: { name, value, onChange } }) => (
+                                    <DPasswordInput
+                                        label={'Password'}
+                                        withAsterisk
+                                        name={name}
+                                        value={value}
+                                        onChange={onChange}
+                                    />
+                                )}
+                            />
+                        </DInputField>
+                        <DButton type='submit' className='mt-4 max-w-[100px] bg-slate-900 w-full text-white h-[45px]'>
+                            Edit
+                        </DButton>
+                    </form>
+                </div>
             </div>
-        </div>
-    )
+        )
 }
 
 export default ProfileTemplate

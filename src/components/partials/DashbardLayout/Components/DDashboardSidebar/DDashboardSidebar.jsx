@@ -1,8 +1,9 @@
+
 'use client'
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { BiSolidBasket,BiSolidDashboard, BiSolidGroup, BiSolidUser } from 'react-icons/bi'
+import { BiIdCard,BiSolidBasket, BiSolidDashboard, BiSolidGroup } from 'react-icons/bi'
 import { useQuery } from 'react-query'
 
 import { profileHttp } from '@core/services/api'
@@ -43,7 +44,7 @@ const DDashboardSidebar = () => {
                 </li>
                 <li className=' mb-6 p-3 text-primary-100'>
                     <Link className='flex gap-3 items-center' href='/dashboard/profile'>
-                        <BiSolidUser className='text-2xl' />
+                        <BiIdCard className='text-2xl' />
                         <span className='text-lg leading-3 mt-1'>Profile</span>
                     </Link>
                 </li>
