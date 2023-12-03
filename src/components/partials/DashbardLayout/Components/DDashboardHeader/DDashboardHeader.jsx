@@ -3,7 +3,7 @@
 import { IoMdNotifications } from 'react-icons/io'
 import { CiSearch } from 'react-icons/ci'
 
-import { avatar, dashboardLogo } from '@public/images'
+import { dashboardLogo } from '@public/images'
 
 import Image from 'next/image'
 
