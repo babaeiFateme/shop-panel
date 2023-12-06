@@ -4,10 +4,10 @@ import { IoMdNotifications } from 'react-icons/io'
 import { CiSearch } from 'react-icons/ci'
 
 import { dashboardLogo } from '@public/images'
-
+import { Fade as Hamburger } from 'hamburger-react'
 import Image from 'next/image'
 
-const DDashboardHeader = () => {
+const DDashboardHeader = ({ toggleSide }) => {
     return (
         <div className='bg-primary-50 flex justify-between items-center min-h-[60px] p-6'>
             <div className='flex gap-5 items-center'>
@@ -21,6 +21,7 @@ const DDashboardHeader = () => {
             <div className='flex items-center justify-center gap-2'>
                 <CiSearch className='text-primary-950 text-2xl' />
                 <IoMdNotifications className='text-primary-950 text-2xl' />
+                <Hamburger size={20} onToggle={toggleSide} />
             </div>
         </div>
     )

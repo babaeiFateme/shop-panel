@@ -8,3 +8,7 @@ body {
 * {
     @apply !font-yekan;
 }
+
+.mantine-ltr-aepzit{
+    @apply !mb-0;
+}

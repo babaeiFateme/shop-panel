@@ -27,6 +27,7 @@
         "axios": "^1.5.1",
         "cookies-next": "^4.0.0",
         "dayjs": "^1.11.10",
+        "hamburger-react": "^2.5.0",
         "highcharts": "^11.2.0",
         "highcharts-react-official": "^3.2.1",
         "leaflet": "^1.9.4",

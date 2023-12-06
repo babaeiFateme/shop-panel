@@ -26,11 +26,9 @@ const ProfileTemplate = () => {
             console.log(error)
         },
     })
-    
     const onSubmit = () => {
         toast.success('edit profile')
     }
-
     if (isSuccess)
         return (
             <div className='h-auto'>

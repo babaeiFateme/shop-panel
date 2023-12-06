@@ -1,16 +1,15 @@
-
 'use client'
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { BiIdCard,BiSolidBasket, BiSolidDashboard, BiSolidGroup } from 'react-icons/bi'
+import { BiIdCard, BiSolidBasket, BiSolidDashboard, BiSolidGroup } from 'react-icons/bi'
 import { useQuery } from 'react-query'
 
 import { profileHttp } from '@core/services/api'
 
 import { SkeletonComponent } from './resources'
 
-const DDashboardSidebar = () => {
+const DDashboardSidebar = ({ showSideBar }) => {
     const [user, setUser] = useState({})
     const responseHttp = useQuery({
         queryFn: (token) => profileHttp(token),
@@ -22,15 +21,17 @@ const DDashboardSidebar = () => {
         },
     })
     return (
-        <div className='bg-primary-950 h-full text-white px-4 py-10 min-w-[250px]'>
+        <div className={` bg-primary-950 h-full text-white px-4 py-10 w-[300px] ${showSideBar ? '' : 'hidden'}`}>
             <ul>
                 {responseHttp.status != 'loading' ? (
-                    <li className='bg-primary-50 bg-opacity-50 p-3 rounded-lg mb-8'>
+                    <li className='bg-primary-50 bg-opacity-50 p-3 rounded-lg mb-8 flex gap-3 items-center'>
                         <div>
                             <Image alt='user' src={user.avatar} width={60} height={60} className='rounded-full mb-1' />
                         </div>
-                        <div>{user.name}</div>
-                        <div>{user.role}</div>
+                        <div>
+                            <div>{user.name}</div>
+                            <div>{user.role}</div>
+                        </div>
                     </li>
                 ) : (
                     <SkeletonComponent />
