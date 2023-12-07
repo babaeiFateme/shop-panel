@@ -1,9 +1,9 @@
 'use client'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { MantineReactTable, useMantineReactTable } from 'mantine-react-table'
 import { useQuery } from 'react-query'
 import { productsHttp } from '@core/services/api'
-//nested data is ok, see accessorKeys in ColumnDef below
+import Image from 'next/image'
 
 const ProductsTemplate = () => {
     const { data: products, isSuccess } = useQuery({
@@ -13,13 +13,40 @@ const ProductsTemplate = () => {
             console.log(error)
         },
     })
-    if (isSuccess)
-        return (
-            <div>
-                {products.map((product, index) => (
-                    <div key={index}>{product.title}</div>
-                ))}
-            </div>
-        )
+
+    const columns = useMemo(
+        () => [
+            {
+                accessorKey: 'id',
+                header: 'Id',
+            },
+            {
+                accessorKey: 'title',
+                header: 'Title',
+            },
+            {
+                accessorKey: 'price',
+                header: 'Price',
+            },
+            {
+                accessorKey: 'description',
+                header: 'Description',
+            },
+            {
+                accessorKey: 'category.name',
+                header: 'category name',
+                
+            },
+        ],
+        []
+    )
+
+    const table = useMantineReactTable({
+        columns,
+        data: Array.isArray(products) ? products : [],
+    })
+
+    return <div>{isSuccess && <MantineReactTable table={table} />}</div>
 }
+
 export default ProductsTemplate
