@@ -24,7 +24,7 @@ const DashboardLayout = ({ children }) => {
             <DDashboardHeader className='h-[150px]' toggleSide={toggleSide} />
             <div className='flex grow h-[calc(100%-150px)] gap-x-4'>
                 <DDashboardSidebar showSideBar={showSideBar} />
-                <main className='h-auto py-10 px-4 w-full'>{children}</main>
+                <main className='h-auto py-10 px-4 w-full overflow-y-auto'>{children}</main>
             </div>
         </div>
     )
