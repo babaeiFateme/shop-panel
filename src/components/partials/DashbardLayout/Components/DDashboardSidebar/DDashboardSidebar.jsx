@@ -21,7 +21,11 @@ const DDashboardSidebar = ({ showSideBar }) => {
         },
     })
     return (
-        <div className={` bg-primary-950 h-full text-white px-4 py-10 w-[300px] ${showSideBar ? '' : 'hidden'}`}>
+        <div
+            className={`sidebar-box transition-all delay-[1s] bg-primary-950 h-full text-white px-4 py-10 w-[300px] ${
+                showSideBar ? '' : 'hidden'
+            }`}
+        >
             <ul>
                 {responseHttp.status != 'loading' ? (
                     <li className='bg-primary-50 bg-opacity-50 p-3 rounded-lg mb-8 flex gap-3 items-center'>

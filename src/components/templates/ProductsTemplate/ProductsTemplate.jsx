@@ -4,9 +4,14 @@ import { MantineReactTable, useMantineReactTable } from 'mantine-react-table'
 import { useQuery } from 'react-query'
 import { productsHttp } from '@core/services/api'
 import Image from 'next/image'
-
+import { Box, Button, Flex, Menu, Text, Title } from '@mantine/core'
 const ProductsTemplate = () => {
-    const { data: products, isSuccess } = useQuery({
+    const {
+        data: products,
+        isSuccess,
+        isLoading,
+        isFetched,
+    } = useQuery({
         queryKey: ['products'],
         queryFn: () => productsHttp(),
         onError: (error) => {
@@ -35,7 +40,31 @@ const ProductsTemplate = () => {
             {
                 accessorKey: 'category.name',
                 header: 'category name',
-                
+            },
+            // {
+            //     accessorKey: 'category.image',
+            //     header: 'Category Image',
+            //     Cell: ({ row }) => (
+            //         <Box>
+            //             <img alt='Category Image' height={30} width={50} src={row.original.image} />
+            //         </Box>
+            //     ),
+            // },
+            {
+                accessorKey: 'images',
+                header: 'category image',
+                Cell: ({ renderedCellValue, row }) => (
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '16px',
+                        }}
+                    >
+                        <img alt='avatar' height={30} src={renderedCellValue[0]} style={{ borderRadius: '50%' }} />
+                        {/* row.original.image */}
+                    </Box>
+                ),
             },
         ],
         []

@@ -5,10 +5,15 @@ html {
 body {
     @apply h-full;
 }
+
 * {
     @apply !font-yekan;
 }
 
-.mantine-ltr-aepzit{
+.mantine-ltr-aepzit {
     @apply !mb-0;
+}
+
+.sidebar-box {
+    @apply !absolute z-50 md:!relative;
 }
