@@ -8,9 +8,15 @@ import { useQuery } from 'react-query'
 import { profileHttp } from '@core/services/api'
 
 import { SkeletonComponent } from './resources'
+import { usePathname } from 'next/navigation'
 
 const DDashboardSidebar = ({ showSideBar }) => {
+    let path = usePathname()
+    path = path.split('/')
+    console.log(path[path.length - 1])
+
     const [user, setUser] = useState({})
+
     const responseHttp = useQuery({
         queryFn: (token) => profileHttp(token),
         onSuccess: (response) => {
@@ -40,26 +46,42 @@ const DDashboardSidebar = ({ showSideBar }) => {
                 ) : (
                     <SkeletonComponent />
                 )}
-
-                <li className='mb-6 text-white bg-primary-200 bg-opacity-50 p-3 rounded-lg'>
+                {/* bg-primary-200 */}
+                <li
+                    className={`mb-6 text-white ${
+                        path[path.length - 1] == 'dashboard' ? ' bg-primary-200 ' : ''
+                    } bg-opacity-50 p-3 rounded-lg`}
+                >
                     <Link href='/dashboard' className='flex gap-3 align-items-center'>
                         <BiSolidDashboard className='text-2xl' />
                         <span className='text-lg leading-3 mt-1'>Dashboard</span>
                     </Link>
                 </li>
-                <li className=' mb-6 p-3 text-primary-100'>
+                <li
+                    className={`mb-6 text-white ${
+                        path[path.length - 1] == 'profile' ? ' bg-primary-200 ' : ''
+                    } bg-opacity-50 p-3 rounded-lg`}
+                >
                     <Link className='flex gap-3 items-center' href='/dashboard/profile'>
                         <BiIdCard className='text-2xl' />
                         <span className='text-lg leading-3 mt-1'>Profile</span>
                     </Link>
                 </li>
-                <li className='mb-6 p-3 text-primary-100'>
+                <li
+                    className={`mb-6 text-white ${
+                        path[path.length - 1] == 'products' ? ' bg-primary-200 ' : ''
+                    } bg-opacity-50 p-3 rounded-lg`}
+                >
                     <Link href='/dashboard/products' className='flex gap-3 items-center'>
                         <BiSolidBasket className='text-2xl' />
                         <span className='text-lg leading-3 mt-1'>Products</span>
                     </Link>
                 </li>
-                <li className='mb-6  p-3 text-primary-100'>
+                <li
+                    className={`mb-6 text-white ${
+                        path[path.length - 1] == 'users' ? ' bg-primary-200 ' : ''
+                    } bg-opacity-50 p-3 rounded-lg`}
+                >
                     <Link href='/dashboard/users' className='flex gap-3 items-center'>
                         <BiSolidGroup className='text-2xl' />
                         <span className='text-lg leading-3 mt-1'>Users</span>
