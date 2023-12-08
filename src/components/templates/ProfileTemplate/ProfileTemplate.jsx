@@ -26,7 +26,7 @@ const ProfileTemplate = () => {
             console.log(error)
         },
     })
-    
+
     const onSubmit = () => {
         toast.success('edit profile')
     }
@@ -43,10 +43,10 @@ const ProfileTemplate = () => {
                         className='w-full max-w-[300px] h-auto rounded-lg block'
                     />
 
-                    <div className='p-3 grow'>
-                        <ul className='font-semibold'>
+                    <div className='p-3 grow '>
+                        <ul className='font-semibold grig-cols-1 md:grid grid-cols-2'>
                             <li className='flex flex-wrap gap-1 mb-5'>
-                                <span className='text-gray-300 text-xl'>Name:</span>
+                                <span className='text-gray-300 text-lg'>Name:</span>
                                 <span className='text-xl'>{profileInfo?.data.name}</span>
                             </li>
                             <li className='flex flex-wrap gap-1 mb-5'>
@@ -54,18 +54,18 @@ const ProfileTemplate = () => {
                                 <span className='text-xl'>{profileInfo?.data.role}</span>
                             </li>
                             <li className='flex flex-wrap gap-1 mb-5'>
-                                <span className='text-gray-300 text-xl'>Email:</span>
+                                <span className='text-gray-300 text-lg'>Email:</span>
                                 <span className='text-xl'>{profileInfo?.data.email}</span>
                             </li>
                             <li className='flex flex-wrap gap-1 mb-5'>
-                                <span className='text-gray-300 text-xl'>Password:</span>
+                                <span className='text-gray-300 text-lg'>Password:</span>
                                 <span className='text-xl'>{profileInfo?.data.password}</span>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div className='mt-8'>
-                    <form onSubmit={handleSubmit(onSubmit)} className='grid grid-cols-1 md:grid-cols-2 gap-2'>
+                    <form onSubmit={handleSubmit(onSubmit)} className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                         <DInputField defaultValue={profileInfo?.data?.name} errors={errors} fieldName={'fname'}>
                             <Controller
                                 name={'fname'}
@@ -85,31 +85,17 @@ const ProfileTemplate = () => {
                         <DInputField defaultValue={profileInfo?.data?.email} errors={errors} fieldName={'email'}>
                             <Controller
                                 name={'email'}
+                                defaultValue={profileInfo?.data?.email}
                                 control={control}
-                                render={({ field: { name, onChange, value } }) => (
-                                    <DTextInput
-                                        name={name}
-                                        label={'Email'}
-                                        withAsterisk
-                                        onChange={onChange}
-                                        value={value}
-                                    />
-                                )}
+                                render={({ field }) => <DTextInput label={'Email'} withAsterisk {...field} />}
                             />
                         </DInputField>
                         <DInputField defaultValue={profileInfo?.data?.password} errors={errors} fieldName={'password'}>
                             <Controller
                                 name={'password'}
                                 control={control}
-                                render={({ field: { name, value, onChange } }) => (
-                                    <DPasswordInput
-                                        label={'Password'}
-                                        withAsterisk
-                                        name={name}
-                                        value={value}
-                                        onChange={onChange}
-                                    />
-                                )}
+                                defaultValue={profileInfo?.data?.password}
+                                render={({ field }) => <DPasswordInput label={'Password'} withAsterisk {...field} />}
                             />
                         </DInputField>
                         <DButton type='submit' className='mt-4 max-w-[100px] bg-slate-900 w-full text-white h-[45px]'>

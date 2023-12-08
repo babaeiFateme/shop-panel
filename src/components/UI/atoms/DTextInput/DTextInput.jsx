@@ -7,14 +7,13 @@ const DTextInput = forwardRef(({ className = '', classNames, ...rest }, ref) => 
      * We can overwrite its style in specific situations for fine-tuned adjustments.
      */
 
-    
     return (
         <TextInput
             className={` ${className}`}
             classNames={{
                 ...classNames,
                 label: 'text-base font-semibold text-blackText ',
-                input: 'py-2 px-4 text-base h-auto font-medium rounded-md',
+                input: 'py-2 min-h-[50px] px-4 text-base h-auto font-medium rounded-md',
             }}
             ref={ref}
             {...rest}

@@ -17,3 +17,8 @@ body {
 .sidebar-box {
     @apply !absolute z-50 md:!relative;
 }
+
+input[type='text'],
+input[type='password'] {
+    @apply !h-full;
+}
