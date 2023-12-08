@@ -28,7 +28,7 @@ const ProfileTemplate = () => {
     })
 
     const onSubmit = () => {
-        toast.success('edit profile')
+        toast.success('done . edit your profile')
     }
 
     if (isSuccess)
