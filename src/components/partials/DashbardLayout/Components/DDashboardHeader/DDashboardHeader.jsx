@@ -10,6 +10,11 @@ import Image from 'next/image'
 const DDashboardHeader = ({ toggleSide }) => {
     return (
         <div className='bg-primary-50 flex justify-between items-center min-h-[60px] p-6'>
+            <div className='flex items-center justify-center gap-2'>
+                <CiSearch className='text-primary-950 text-2xl' />
+                <IoMdNotifications className='text-primary-950 text-2xl' />
+                <Hamburger size={20} onToggle={toggleSide} />
+            </div>
             <div className='flex gap-5 items-center'>
                 <div className='flex items-center gap-2'>
                     <Image src={dashboardLogo} width={50} height={50} alt={'logo'} />
@@ -17,11 +22,6 @@ const DDashboardHeader = ({ toggleSide }) => {
                         <span className='text-gray-500 text-lg'>lara shop</span>
                     </div>
                 </div>
-            </div>
-            <div className='flex items-center justify-center gap-2'>
-                <CiSearch className='text-primary-950 text-2xl' />
-                <IoMdNotifications className='text-primary-950 text-2xl' />
-                <Hamburger size={20} onToggle={toggleSide} />
             </div>
         </div>
     )
