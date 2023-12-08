@@ -6,7 +6,6 @@ import { productsHttp } from '@core/services/api'
 import Image from 'next/image'
 import { Box } from '@mantine/core'
 const ProductsTemplate = () => {
-
     const {
         data: products,
         isSuccess,
@@ -30,7 +29,7 @@ const ProductsTemplate = () => {
                 header: 'Product',
                 Cell: ({ renderedCellValue, row }) => (
                     <Box>
-                        <Image
+                        <img
                             alt='product'
                             height={100}
                             width={100}
