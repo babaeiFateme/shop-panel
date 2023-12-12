@@ -10,7 +10,7 @@ import { DButton, DTextArea, DTextInput } from '@components/UI/atoms/client'
 import { DInputField } from '@components/UI/molecules/client'
 
 import { createProductHttp } from '@core/services/api'
-import { profileValidation } from '@core/utils'
+import { productCreateValidation } from '@core/utils'
 
 const DProductCreateForm = () => {
     
@@ -20,7 +20,7 @@ const DProductCreateForm = () => {
         control,
         formState: { errors },
     } = useForm({
-        resolver: yupResolver(profileValidation),
+        resolver: yupResolver(productCreateValidation),
     })
 
     const { mutate, isLoading } = useMutation({
@@ -56,7 +56,7 @@ const DProductCreateForm = () => {
                     </DInputField>
                     <DInputField errors={errors} fieldName={'GategoryId'}>
                         <Controller
-                            name={'CategoryId'}
+                            name={'GategoryId'}
                             control={control}
                             render={({ field }) => <DTextInput label={'Category'} withAsterisk {...field} />}
                         />
