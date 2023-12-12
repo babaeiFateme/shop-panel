@@ -4,8 +4,9 @@ import { MantineReactTable, useMantineReactTable } from 'mantine-react-table'
 import { useQuery } from 'react-query'
 import { productsHttp } from '@core/services/api'
 import Image from 'next/image'
-import { Box } from '@mantine/core'
-import Link from 'next/link'
+import { Menu } from '@mantine/core';
+import { Box } from '@mantine/core';
+import Link from 'next/link';
 const ProductsTemplate = () => {
     const {
         data: products,
@@ -24,6 +25,7 @@ const ProductsTemplate = () => {
             {
                 accessorKey: 'id',
                 header: 'Id',
+                enableEditing: false,
             },
             {
                 accessorKey: 'images',
@@ -56,6 +58,7 @@ const ProductsTemplate = () => {
                 accessorKey: 'category.name',
                 header: 'category name',
             },
+            
         ],
         []
     )
@@ -63,6 +66,16 @@ const ProductsTemplate = () => {
     const table = useMantineReactTable({
         columns,
         data: Array.isArray(products) ? products : [],
+        // for add column required
+        enableRowActions: true,
+        renderRowActionMenuItems: ({ row }) => (
+            <>
+              <Menu.Item onClick={() => console.info('edit')}>
+                edit
+              </Menu.Item>
+              <Menu.Item onClick={() => console.info('delete')}>Delete</Menu.Item>
+            </>
+          ),
     })
 
     return (
