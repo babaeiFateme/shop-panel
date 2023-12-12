@@ -5,6 +5,7 @@ import { useQuery } from 'react-query'
 import { productsHttp } from '@core/services/api'
 import Image from 'next/image'
 import { Box } from '@mantine/core'
+import Link from 'next/link'
 const ProductsTemplate = () => {
     const {
         data: products,
@@ -64,7 +65,14 @@ const ProductsTemplate = () => {
         data: Array.isArray(products) ? products : [],
     })
 
-    return <div>{isSuccess && <MantineReactTable table={table} />}</div>
+    return (
+        <>
+            <Link href={'/dashboard/products/create'} className='py-4 px-2 bg-primary-600 text-primary-100 font-medium text-lg'>
+                create product
+            </Link>
+            <div>{isSuccess && <MantineReactTable table={table} />}</div>
+        </>
+    )
 }
 
 export default ProductsTemplate

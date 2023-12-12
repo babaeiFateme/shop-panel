@@ -79,7 +79,7 @@ export const theme = {
             },
         },
         fontFamily: {
-            yekan: ['var(--font-yekan)'],
+            yekan: ['var(--font-poppins)'],
         },
     },
 }

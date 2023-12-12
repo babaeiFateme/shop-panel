@@ -6,9 +6,9 @@ body {
     @apply h-full;
 }
 
-* {
-    @apply !font-yekan;
-}
+/* * {
+    @apply !font-poppins;
+} */
 
 .mantine-ltr-aepzit {
     @apply !mb-0;

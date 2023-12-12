@@ -1,3 +1,5 @@
+import { Poppins } from '@core/utils/fonts/font'
+
 import '@styles/globals.css'
 
 import Providers from './Providers/Providers'
@@ -9,7 +11,7 @@ export const metadata = {
 
 const RootLayout = ({ children }) => {
     return (
-        <html lang='en'>
+        <html lang='en' className={Poppins.variable}>
             <body dir='ltr'>
                 <Providers>{children}</Providers>
             </body>
