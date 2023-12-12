@@ -1,13 +1,14 @@
 'use client'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { MantineReactTable, useMantineReactTable } from 'mantine-react-table'
-import { useQuery } from 'react-query'
-import { productsHttp } from '@core/services/api'
+import { useMutation, useQuery } from 'react-query'
+import { deleteHttp, productsHttp } from '@core/services/api'
 import Image from 'next/image'
-import { Menu } from '@mantine/core';
-import { Box } from '@mantine/core';
-import Link from 'next/link';
+import { Menu } from '@mantine/core'
+import { Box } from '@mantine/core'
+import Link from 'next/link'
 const ProductsTemplate = () => {
+    const [productId, setProductId] = useState('')
     const {
         data: products,
         isSuccess,
@@ -58,11 +59,21 @@ const ProductsTemplate = () => {
                 accessorKey: 'category.name',
                 header: 'category name',
             },
-            
         ],
         []
     )
-
+    const { mutate, data } = useMutation({
+        queryKey: ['delete-Product'],
+        mutationFn: (data) => deleteHttp(data),
+        onSuccess: (response) => {
+            console.log(response, 'delte')
+        },
+    })
+    const x = (data) => {
+        console.log(data)
+        setProductId(data)
+        mutate(data)
+    }
     const table = useMantineReactTable({
         columns,
         data: Array.isArray(products) ? products : [],
@@ -70,17 +81,19 @@ const ProductsTemplate = () => {
         enableRowActions: true,
         renderRowActionMenuItems: ({ row }) => (
             <>
-              <Menu.Item onClick={() => console.info('edit')}>
-                edit
-              </Menu.Item>
-              <Menu.Item onClick={() => console.info('delete')}>Delete</Menu.Item>
+                {/* <Menu.Item onClick={() => console.log(row.original.id)}>edit</Menu.Item> */}
+                <Menu.Item onClick={() => x(row.original.id)}>edit</Menu.Item>
+                <Menu.Item onClick={() => console.info(row.original.id)}>Delete</Menu.Item>
             </>
-          ),
+        ),
     })
 
     return (
         <div className='relative'>
-            <Link href={'/dashboard/products/create'} className='py-2 mb-5 px-6 bg-primary-900 text-primary-50 rounded-md font-medium text-lg absolute right-5 top-[-4.5rem]'>
+            <Link
+                href={'/dashboard/products/create'}
+                className='py-2 mb-5 px-6 bg-primary-900 text-primary-50 rounded-md font-medium text-lg absolute right-5 top-[-4.5rem]'
+            >
                 create product
             </Link>
             <div>{isSuccess && <MantineReactTable table={table} />}</div>
@@ -89,11 +102,3 @@ const ProductsTemplate = () => {
 }
 
 export default ProductsTemplate
-
-
-
-
-
-
-
-
