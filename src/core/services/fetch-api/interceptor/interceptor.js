@@ -14,7 +14,7 @@ axios.interceptors.response.use(
                 toast.error('NETWORK-ERROR')
             }
 
-            if (error.response.status === 401 ) {
+            if (error.response.status === 401 || error.response.status === 400) {
                 deleteCookie('token')
                 // do not reload page if getting 401 error for wrong username and password in login
                 if (window.location.pathname !== '/') {

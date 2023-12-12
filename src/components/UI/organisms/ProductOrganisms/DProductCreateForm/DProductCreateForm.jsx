@@ -17,7 +17,6 @@ import { toast } from 'react-toastify'
 
 const DProductCreateForm = () => {
     const route = useRouter()
-    console.log(route);
 
     const {
         handleSubmit,

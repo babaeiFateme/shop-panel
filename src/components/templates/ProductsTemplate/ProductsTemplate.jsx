@@ -66,13 +66,21 @@ const ProductsTemplate = () => {
     })
 
     return (
-        <>
-            <Link href={'/dashboard/products/create'} className='py-4 px-2 bg-primary-600 text-primary-100 font-medium text-lg'>
+        <div className='relative'>
+            <Link href={'/dashboard/products/create'} className='py-2 mb-5 px-6 bg-primary-900 text-primary-50 rounded-md font-medium text-lg absolute right-5 top-[-4.5rem]'>
                 create product
             </Link>
             <div>{isSuccess && <MantineReactTable table={table} />}</div>
-        </>
+        </div>
     )
 }
 
 export default ProductsTemplate
+
+
+
+
+
+
+
+
