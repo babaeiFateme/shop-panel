@@ -11,35 +11,53 @@ import { DInputField } from '@components/UI/molecules/client'
 
 import { createProductHttp } from '@core/services/api'
 import { productCreateValidation } from '@core/utils'
+import { FileInput } from '@mantine/core'
+import { useRouter } from 'next/navigation'
+import { toast } from 'react-toastify'
 
 const DProductCreateForm = () => {
-    
+    const route = useRouter()
+    console.log(route);
 
     const {
         handleSubmit,
         control,
         formState: { errors },
     } = useForm({
+        defaultValues: {
+            title: "",
+            description: "",
+            price: "",
+            categoryId: "",
+        },
         resolver: yupResolver(productCreateValidation),
     })
 
     const { mutate, isLoading } = useMutation({
         mutationFn: (data) => createProductHttp(data),
         onSuccess: (response) => {
-            console.log(response)
+            console.log(response,'response')
+            if(response.status ==201){
+                route.push("/dashboard/products")
+                toast.success("done! Youre product create .")
+            }
         },
         onError: (error) => {
             console.log(error)
+            // toast.error(error.message)
         },
     })
     const onSubmit = (data) => {
         mutate(data)
+        data.images=["https://placeimg.com/640/480/any","https://placeimg.com/640/480/any"]
+       
     }
 
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className='block md:grid md:grid-cols-2 md:gap-3'>
+               
                     <DInputField className='col-span-2' errors={errors} fieldName={'title'}>
                         <Controller
                             name={'title'}
@@ -54,9 +72,9 @@ const DProductCreateForm = () => {
                             render={({ field }) => <DTextInput label={'Price'} withAsterisk {...field} />}
                         />
                     </DInputField>
-                    <DInputField errors={errors} fieldName={'GategoryId'}>
+                    <DInputField errors={errors} fieldName={'categoryId'}>
                         <Controller
-                            name={'GategoryId'}
+                            name={'categoryId'}
                             control={control}
                             render={({ field }) => <DTextInput label={'Category'} withAsterisk {...field} />}
                         />
