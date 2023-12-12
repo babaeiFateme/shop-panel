@@ -4,9 +4,11 @@ import { MantineReactTable, useMantineReactTable } from 'mantine-react-table'
 import { useMutation, useQuery } from 'react-query'
 import { deleteHttp, productsHttp } from '@core/services/api'
 import Image from 'next/image'
-import { Menu } from '@mantine/core'
+import { ActionIcon } from '@mantine/core'
 import { Box } from '@mantine/core'
 import Link from 'next/link'
+import { IconEdit, IconTrash } from '@tabler/icons-react'
+import { toast } from 'react-toastify'
 const ProductsTemplate = () => {
     const [productId, setProductId] = useState('')
     const {
@@ -66,6 +68,9 @@ const ProductsTemplate = () => {
         queryKey: ['delete-Product'],
         mutationFn: (data) => deleteHttp(data),
         onSuccess: (response) => {
+            if (response.status == 200) {
+                toast.error('You are delete product.')
+            }
             console.log(response, 'delte')
         },
     })
@@ -82,8 +87,21 @@ const ProductsTemplate = () => {
         renderRowActionMenuItems: ({ row }) => (
             <>
                 {/* <Menu.Item onClick={() => console.log(row.original.id)}>edit</Menu.Item> */}
-                <Menu.Item onClick={() => x(row.original.id)}>edit</Menu.Item>
-                <Menu.Item onClick={() => console.info(row.original.id)}>Delete</Menu.Item>
+                {/* <Menu.Item onClick={() => x(row.original.id)}>edit</Menu.Item>
+                <Menu.Item onClick={() => console.info(row.original.id)}>Delete</Menu.Item> */}
+                <Box sx={{ display: 'flex', flexWrap: 'nowrap', gap: '8px' }}>
+                    <ActionIcon
+                        color='orange'
+                        onClick={() => {
+                            table.setEditingRow(row)
+                        }}
+                    >
+                        <IconEdit />
+                    </ActionIcon>
+                    <ActionIcon color='red' onClick={() => x(row.original.id)}>
+                        <IconTrash />
+                    </ActionIcon>
+                </Box>
             </>
         ),
     })
