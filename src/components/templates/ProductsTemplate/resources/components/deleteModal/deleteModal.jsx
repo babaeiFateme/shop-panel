@@ -1,5 +1,5 @@
 import React from 'react'
-import { useMutation } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 import { toast } from 'react-toastify'
 
 import { DButton, DModal } from '@components/UI/atoms/client'
@@ -14,27 +14,32 @@ const DeleteModal = ({ onClose, isShow, id }) => {
             if (response.status == 200) {
                 toast.error('You are delete product.')
             }
-            
         },
     })
-    const x = () => {
-        console.log(id, typeof id, 'on modal')
-        console.log(333)
-        mutate(id)
-    }
+
     return (
         <DModal title='!!! delete product !!!' onClose={onClose} opened={isShow}>
             <div>
                 <h3>Are you sure delete this product ?</h3>
-                <DButton
-                    type='button'
-                    onClick={() => x()}
-                    // loading={isLoading}
-                    radius='md'
-                    className='mt-3 bg-red-600 text-white h-[45px] w-fit mr-auto ml-auto sm:mr-0'
-                >
-                    Delete
-                </DButton>
+                <div className='mt-6'>
+                    <DButton
+                        type='button'
+                        onClick={() => mutate(id)}
+                        loading={isLoading}
+                        radius='md'
+                        className='mt-3 bg-red-600 text-white h-[45px] w-fit mr-5 '
+                    >
+                        Delete
+                    </DButton>
+                    <DButton
+                        type='button'
+                        onClick={onClose}
+                        radius='md'
+                        className='mt-3 bg-gray-600 text-white h-[45px] w-fit '
+                    >
+                        cancel
+                    </DButton>
+                </div>
             </div>
         </DModal>
     )
