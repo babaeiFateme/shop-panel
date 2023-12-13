@@ -5,10 +5,13 @@ import { deleteHttp, productsHttp } from '@core/services/api'
 
 import { MantineReactTable, useMantineReactTable } from 'mantine-react-table'
 import { ActionIcon, Button, Flex, Stack, Text, Title, Tooltip, Box } from '@mantine/core'
+
 import Link from 'next/link'
 import { IconEdit, IconTrash } from '@tabler/icons-react'
 import { toast } from 'react-toastify'
+import { DModal } from '@components/UI/atoms/client'
 const ProductsTemplate = () => {
+    const [isShow, setIsShow] = useState(false)
     const {
         data: products,
         isSuccess,
@@ -93,30 +96,46 @@ const ProductsTemplate = () => {
         enableFullScreenToggle: false,
         //enabled for index table
         enableRowNumbers: true,
-        
 
         renderRowActions: ({ row }) => (
             <Box sx={{ display: 'flex', flexWrap: 'nowrap', gap: '8px' }}>
                 <Tooltip label='Edit'>
-                    <ActionIcon
-                        color='blue'
-                        onClick={() => {
-                            // table.setEditingRow(row)
-                        }}
-                    >
+                    <ActionIcon color='blue' onClick={() => setIsOpen(!isOpen)}>
                         <IconEdit />
                     </ActionIcon>
                 </Tooltip>
 
-                <Tooltip label='delete'>
+                {/* <Tooltip label='delete'>
                     <ActionIcon color='red' onClick={() => mutate(row.original.id)}>
+                        <IconTrash />
+                    </ActionIcon>
+                </Tooltip> */}
+
+                <Tooltip label='delete'>
+                    <ActionIcon color='red' onClick={() => onClose(row)}>
                         <IconTrash />
                     </ActionIcon>
                 </Tooltip>
             </Box>
         ),
     })
-
+    const onClose = (row) => {
+        console.log(row.original.id)
+        setIsShow(!isShow)
+    }
+    // modals.openConfirmModal({
+    //     title: 'Are you sure you want to delete this product?',
+    //     children: (
+    //         <Text>
+    //             Are you sure you want to delete {row.original.title} ? This action cannot
+    //             be undone.
+    //         </Text>
+    //     ),
+    //     labels: { confirm: 'Delete', cancel: 'Cancel' },
+    //     confirmProps: { color: 'red' },
+    //     onConfirm: () => mutate(row.original.id),
+    // }
+    // )
     return (
         <div className='relative'>
             <Link
