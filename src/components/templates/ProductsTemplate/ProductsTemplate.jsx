@@ -1,17 +1,17 @@
 'use client'
 import { useMemo, useState } from 'react'
-import { useMutation, useQuery } from 'react-query'
-import { deleteHttp, productsHttp } from '@core/services/api'
-
-import { MantineReactTable, useMantineReactTable } from 'mantine-react-table'
-import { ActionIcon, Button, Flex, Stack, Text, Title, Tooltip, Box } from '@mantine/core'
-
 import Link from 'next/link'
+import { useQuery } from 'react-query'
+import { ActionIcon, Box, Button, Flex, Stack, Text, Title, Tooltip } from '@mantine/core'
+import { MantineReactTable, useMantineReactTable } from 'mantine-react-table'
 import { IconEdit, IconTrash } from '@tabler/icons-react'
-import { toast } from 'react-toastify'
-import { DModal } from '@components/UI/atoms/client'
+
+import { productsHttp } from '@core/services/api'
+
+import DeleteModal from './resources/components/deleteModal/deleteModal'
 const ProductsTemplate = () => {
     const [isShow, setIsShow] = useState(false)
+    const [id, setId] = useState(null)
     const {
         data: products,
         isSuccess,
@@ -65,18 +65,18 @@ const ProductsTemplate = () => {
         ],
         []
     )
-    const { mutate, data } = useMutation({
-        mutationFn: (data) => deleteHttp(data),
-        onSuccess: (response) => {
-            if (response.status == 200) {
-                toast.error('You are delete product.')
-            }
-            console.log(response, 'delte')
-        },
-    })
-    const x = (data) => {
-        mutate(data)
-    }
+    // const { mutate, data } = useMutation({
+    //     mutationFn: (data) => deleteHttp(data),
+    //     onSuccess: (response) => {
+    //         if (response.status == 200) {
+    //             toast.error('You are delete product.')
+    //         }
+    //         console.log(response, 'delte')
+    //     },
+    // })
+    // const x = (data) => {
+    //     mutate(data)
+    // }
     const table = useMantineReactTable({
         columns,
         data: Array.isArray(products) ? products : [],
@@ -100,7 +100,7 @@ const ProductsTemplate = () => {
         renderRowActions: ({ row }) => (
             <Box sx={{ display: 'flex', flexWrap: 'nowrap', gap: '8px' }}>
                 <Tooltip label='Edit'>
-                    <ActionIcon color='blue' onClick={() => setIsOpen(!isOpen)}>
+                    <ActionIcon color='blue' onClick={() => setIsShow(true)}>
                         <IconEdit />
                     </ActionIcon>
                 </Tooltip>
@@ -120,7 +120,7 @@ const ProductsTemplate = () => {
         ),
     })
     const onClose = (row) => {
-        console.log(row.original.id)
+        setId(row.original.id)
         setIsShow(!isShow)
     }
     // modals.openConfirmModal({
@@ -145,6 +145,7 @@ const ProductsTemplate = () => {
                 create product
             </Link>
             <div>{isSuccess && <MantineReactTable table={table} />}</div>
+            <DeleteModal onClose={() => setIsShow(false)} isShow={isShow} id={id}></DeleteModal>
         </div>
     )
 }

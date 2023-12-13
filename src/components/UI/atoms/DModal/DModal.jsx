@@ -7,7 +7,7 @@ const DModal = ({ children, className = '', classNames, ...rest }) => {
      */
     return (
         <Modal
-            dir='rtl'
+            dir='ltr'
             closeOnClickOutside={false}
             transitionProps={{ transition: 'slide-down', duration: 300 }}
             className={` ${className}`}
