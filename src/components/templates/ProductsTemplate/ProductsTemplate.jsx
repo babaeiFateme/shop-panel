@@ -15,6 +15,7 @@ const ProductsTemplate = () => {
         data: products,
         isSuccess,
         isLoading,
+        isError
     } = useQuery({
         queryKey: ['products'],
         queryFn: () => productsHttp(),
