@@ -25,12 +25,6 @@ const ProductsTemplate = () => {
     const columns = useMemo(
         () => [
             {
-                accessorKey: 'id',
-                header: 'Id',
-                enableEditing: false,
-                size: 70,
-            },
-            {
                 accessorKey: 'images',
                 header: 'Product',
                 Cell: ({ renderedCellValue }) => (
@@ -48,6 +42,7 @@ const ProductsTemplate = () => {
             {
                 accessorKey: 'title',
                 header: 'Title',
+                size: 80,
             },
             {
                 accessorKey: 'price',
@@ -58,7 +53,6 @@ const ProductsTemplate = () => {
             {
                 accessorKey: 'description',
                 header: 'Description',
-
                 size: 300,
             },
             {
@@ -83,6 +77,12 @@ const ProductsTemplate = () => {
     const table = useMantineReactTable({
         columns,
         data: Array.isArray(products) ? products : [],
+        mantineTableHeadCellProps: {
+            align: 'center', //change head cell props
+        },
+        mantineTableBodyCellProps: {
+            align: 'center',
+        },
         // for add column required
         enableRowActions: true,
         // change position of action column
@@ -91,6 +91,9 @@ const ProductsTemplate = () => {
         enableDensityToggle: false,
         //disabled full screen mode
         enableFullScreenToggle: false,
+        //enabled for index table
+        enableRowNumbers: true,
+        
 
         renderRowActions: ({ row }) => (
             <Box sx={{ display: 'flex', flexWrap: 'nowrap', gap: '8px' }}>
