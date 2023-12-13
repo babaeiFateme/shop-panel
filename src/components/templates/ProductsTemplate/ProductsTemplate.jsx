@@ -15,7 +15,7 @@ const ProductsTemplate = () => {
         data: products,
         isSuccess,
         isLoading,
-        isError
+        isError,
     } = useQuery({
         queryKey: ['products'],
         queryFn: () => productsHttp(),
@@ -66,7 +66,6 @@ const ProductsTemplate = () => {
         []
     )
     const { mutate, data } = useMutation({
-        queryKey: ['delete-Product'],
         mutationFn: (data) => deleteHttp(data),
         onSuccess: (response) => {
             if (response.status == 200) {
@@ -85,25 +84,21 @@ const ProductsTemplate = () => {
         data: Array.isArray(products) ? products : [],
         // for add column required
         enableRowActions: true,
+        positionActionsColumn: 'last',
         renderRowActionMenuItems: ({ row }) => (
-            <>
-                {/* <Menu.Item onClick={() => console.log(row.original.id)}>edit</Menu.Item> */}
-                {/* <Menu.Item onClick={() => x(row.original.id)}>edit</Menu.Item>
-                <Menu.Item onClick={() => console.info(row.original.id)}>Delete</Menu.Item> */}
-                <Box sx={{ display: 'flex', flexWrap: 'nowrap', gap: '8px' }}>
-                    <ActionIcon
-                        color='orange'
-                        onClick={() => {
-                            table.setEditingRow(row)
-                        }}
-                    >
-                        <IconEdit />
-                    </ActionIcon>
-                    <ActionIcon color='red' onClick={() => x(row.original.id)}>
-                        <IconTrash />
-                    </ActionIcon>
-                </Box>
-            </>
+            <Box sx={{ display: 'flex', flexWrap: 'nowrap', gap: '8px' }}>
+                <ActionIcon
+                    color='blue'
+                    onClick={() => {
+                        // table.setEditingRow(row)
+                    }}
+                >
+                    <IconEdit />
+                </ActionIcon>
+                <ActionIcon color='red' onClick={() => mutate(row.original.id)}>
+                    <IconTrash />
+                </ActionIcon>
+            </Box>
         ),
     })
 
