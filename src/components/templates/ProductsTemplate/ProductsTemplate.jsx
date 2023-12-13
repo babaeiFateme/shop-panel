@@ -1,16 +1,14 @@
 'use client'
 import { useMemo, useState } from 'react'
-import { MantineReactTable, useMantineReactTable } from 'mantine-react-table'
 import { useMutation, useQuery } from 'react-query'
 import { deleteHttp, productsHttp } from '@core/services/api'
-import Image from 'next/image'
-import { ActionIcon } from '@mantine/core'
-import { Box } from '@mantine/core'
+
+import { MantineReactTable, useMantineReactTable } from 'mantine-react-table'
+import { ActionIcon, Button, Flex, Stack, Text, Title, Tooltip, Box } from '@mantine/core'
 import Link from 'next/link'
 import { IconEdit, IconTrash } from '@tabler/icons-react'
 import { toast } from 'react-toastify'
 const ProductsTemplate = () => {
-    const [productId, setProductId] = useState('')
     const {
         data: products,
         isSuccess,
@@ -34,7 +32,7 @@ const ProductsTemplate = () => {
             {
                 accessorKey: 'images',
                 header: 'Product',
-                Cell: ({ renderedCellValue, row }) => (
+                Cell: ({ renderedCellValue }) => (
                     <Box>
                         <img
                             alt='product'
@@ -75,8 +73,6 @@ const ProductsTemplate = () => {
         },
     })
     const x = (data) => {
-        console.log(data)
-        setProductId(data)
         mutate(data)
     }
     const table = useMantineReactTable({
@@ -84,20 +80,31 @@ const ProductsTemplate = () => {
         data: Array.isArray(products) ? products : [],
         // for add column required
         enableRowActions: true,
+        // change position of action column
         positionActionsColumn: 'last',
-        renderRowActionMenuItems: ({ row }) => (
+        //disabled density
+        enableDensityToggle: false,
+        //disabled full screen mode
+        enableFullScreenToggle: false,
+
+        renderRowActions: ({ row }) => (
             <Box sx={{ display: 'flex', flexWrap: 'nowrap', gap: '8px' }}>
-                <ActionIcon
-                    color='blue'
-                    onClick={() => {
-                        // table.setEditingRow(row)
-                    }}
-                >
-                    <IconEdit />
-                </ActionIcon>
-                <ActionIcon color='red' onClick={() => mutate(row.original.id)}>
-                    <IconTrash />
-                </ActionIcon>
+                <Tooltip label='Edit'>
+                    <ActionIcon
+                        color='blue'
+                        onClick={() => {
+                            // table.setEditingRow(row)
+                        }}
+                    >
+                        <IconEdit />
+                    </ActionIcon>
+                </Tooltip>
+
+                <Tooltip label='delete'>
+                    <ActionIcon color='red' onClick={() => mutate(row.original.id)}>
+                        <IconTrash />
+                    </ActionIcon>
+                </Tooltip>
             </Box>
         ),
     })
