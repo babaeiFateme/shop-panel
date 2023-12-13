@@ -28,6 +28,7 @@ const ProductsTemplate = () => {
                 accessorKey: 'id',
                 header: 'Id',
                 enableEditing: false,
+                size: 70,
             },
             {
                 accessorKey: 'images',
@@ -51,10 +52,14 @@ const ProductsTemplate = () => {
             {
                 accessorKey: 'price',
                 header: 'Price',
+                size: 40,
+                Cell: ({ renderedCellValue }) => `${renderedCellValue}$ `,
             },
             {
                 accessorKey: 'description',
                 header: 'Description',
+
+                size: 300,
             },
             {
                 accessorKey: 'category.name',
