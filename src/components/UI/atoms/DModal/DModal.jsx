@@ -17,7 +17,7 @@ const DModal = ({ children, className = '', classNames, ...rest }) => {
                 overlay: 'z-[1000]',
                 content: 'border rounded-lg shadow-none',
                 header: 'border-b flex-row',
-                title: '!text-lg sm:!text-xl md:!text-2xl font-bold',
+                title: '!text-sm sm:!text-md md:!text-lg font-semibold',
                 body: 'p-4',
             }}
             styles={{
