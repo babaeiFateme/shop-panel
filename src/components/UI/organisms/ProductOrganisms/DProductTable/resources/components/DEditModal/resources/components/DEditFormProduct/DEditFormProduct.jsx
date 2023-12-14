@@ -1,10 +1,11 @@
 'use client'
 import { Controller, useForm } from 'react-hook-form'
 import { useMutation, useQueryClient } from 'react-query'
+import { toast } from 'react-toastify'
 import { error } from 'highcharts'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { DButton, DTextArea, DTextInput } from '@components/UI/atoms/client'
+import { DButton, DSpinner, DTextArea, DTextInput } from '@components/UI/atoms/client'
 import { DInputField } from '@components/UI/molecules/client'
 
 import { editProductHttp } from '@core/services/api'
@@ -24,11 +25,12 @@ const DEditFormProduct = ({ product, onCloseEdit }) => {
         mutationFn: (data) => editProductHttp({ data, id }),
         onSuccess: (response) => {
             queryClient.invalidateQueries('products')
+            toast.success('done!')
             console.log(response)
             onCloseEdit(false)
         },
     })
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         // console.log(data)
         mutate(data)
     }
@@ -83,6 +85,7 @@ const DEditFormProduct = ({ product, onCloseEdit }) => {
                     />
                 </DInputField>
                 <DButton
+                    isLodaing={isLodaing}
                     type='submit'
                     className='bg-primary-900 text-primary-50 font-semibold text-base min-h-[50px] max-w-[150px] my-4'
                 >

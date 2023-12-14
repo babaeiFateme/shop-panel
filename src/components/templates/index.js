@@ -3,4 +3,5 @@ import DashboardTemplate from './DashboardTemplate/DashboardTemplate'
 import LoginTemplate from './LoginTemplate/LoginTemplate'
 import ProductsTemplate from './ProductsTemplate/ProductsTemplate'
 import ProfileTemplate from './ProfileTemplate/ProfileTemplate'
-export { LoginTemplate, DashboardTemplate, ProfileTemplate, ProductsTemplate, CreateProductTemplate }
+import UsersTemplate from './UsersTempate/UsersTemplate'
+export { LoginTemplate, DashboardTemplate, ProfileTemplate, ProductsTemplate, CreateProductTemplate, UsersTemplate }

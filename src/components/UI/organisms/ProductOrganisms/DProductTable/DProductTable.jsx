@@ -40,7 +40,7 @@ const DProductTable = () => {
                             height={100}
                             width={100}
                             src={renderedCellValue[0]}
-                            style={{ borderRadius: '10px' }}
+                            style={{ borderRadius: '10px', aspectRatio: 'squre' }}
                         />
                     </Box>
                 ),
