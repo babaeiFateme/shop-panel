@@ -10,7 +10,7 @@ const DToast = () => {
             hide-hideProgressBar={false}
             newestOnTop={true}
             closeOnClick
-            rtl={true}
+            rtl={false}
             pauseOnFocusLoss
             pauseOnHover
             theme='light'

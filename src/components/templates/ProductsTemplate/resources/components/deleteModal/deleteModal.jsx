@@ -1,18 +1,21 @@
 import React from 'react'
-import { useMutation, useQuery } from 'react-query'
+import { QueryClient, useMutation, useQuery, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
 
 import { DButton, DModal } from '@components/UI/atoms/client'
 
 import { deleteHttp } from '@core/services/api'
 const DeleteModal = ({ onClose, isShow, id }) => {
+    const queryClient = new useQueryClient()
     console.log(id, 'modal')
 
     const { mutate, data, isLoading } = useMutation({
         mutationFn: (data) => deleteHttp(data),
         onSuccess: (response) => {
             if (response.status == 200) {
-                toast.error('You are delete product.')
+                queryClient.invalidateQueries('products')
+                toast.info(' delete product.')
+                onClose(false)
             }
         },
     })
