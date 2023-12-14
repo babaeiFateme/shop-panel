@@ -1,6 +1,6 @@
 'use client'
 import { Controller, useForm } from 'react-hook-form'
-import { useMutation } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { error } from 'highcharts'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -10,8 +10,8 @@ import { DInputField } from '@components/UI/molecules/client'
 import { editProductHttp } from '@core/services/api'
 import { productEditValidation } from '@core/utils'
 
-const DEditFormProduct = ({ product }) => {
-    // console.log(product, 'kjsfksjfskfjsk')
+const DEditFormProduct = ({ product, onCloseEdit }) => {
+    const queryClient = new useQueryClient()
     const {
         control,
         handleSubmit,
@@ -21,14 +21,16 @@ const DEditFormProduct = ({ product }) => {
     })
     const id = product.id
     const { mutate, isLodaing } = useMutation({
-        mutationFn: ({ data }) => editProductHttp({ id, data }),
+        mutationFn: (data) => editProductHttp({ data, id }),
         onSuccess: (response) => {
+            queryClient.invalidateQueries('products')
             console.log(response)
+            onCloseEdit(false)
         },
     })
-    const onSubmit = (id, data) => {
+    const onSubmit = (data) => {
         // console.log(data)
-        mutate(id, data)
+        mutate(data)
     }
     return (
         <div>
@@ -41,7 +43,7 @@ const DEditFormProduct = ({ product }) => {
                         height={150}
                     />
                 </div>
-                <DInputField errors={errors} fieldName={'title'} className='col-span-2'>
+                <DInputField defaultValue={product?.title} errors={errors} fieldName={'title'} className='col-span-2'>
                     <Controller
                         name={'title'}
                         control={control}
@@ -50,7 +52,7 @@ const DEditFormProduct = ({ product }) => {
                     />
                 </DInputField>
 
-                <DInputField errors={errors} fieldName={'price'}>
+                <DInputField defaultValue={product?.price} errors={errors} fieldName={'price'}>
                     <Controller
                         name={'price'}
                         control={control}
@@ -58,7 +60,7 @@ const DEditFormProduct = ({ product }) => {
                         render={({ field }) => <DTextInput label='Price' {...field} withAsterisk />}
                     />
                 </DInputField>
-                <DInputField errors={errors} fieldName={'category'}>
+                <DInputField defaultValue={product?.category?.name} errors={errors} fieldName={'category'}>
                     <Controller
                         name={'category'}
                         control={control}
@@ -67,7 +69,12 @@ const DEditFormProduct = ({ product }) => {
                     />
                 </DInputField>
 
-                <DInputField errors={errors} fieldName={'description'} className='col-span-2'>
+                <DInputField
+                    defaultValue={product?.description}
+                    errors={errors}
+                    fieldName={'description'}
+                    className='col-span-2'
+                >
                     <Controller
                         name={'description'}
                         control={control}

@@ -7,7 +7,7 @@ import { DEditFormProduct } from './resources'
 const DEditModal = ({ onCloseEdit, product, isShow }) => {
     return (
         <DModal onClose={onCloseEdit} opened={isShow} size='xl' className=''>
-            <DEditFormProduct product={product} />
+            <DEditFormProduct product={product} onCloseEdit={onCloseEdit} />
         </DModal>
     )
 }
