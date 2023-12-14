@@ -4,11 +4,11 @@ import { useMutation } from 'react-query'
 import { error } from 'highcharts'
 import { yupResolver } from '@hookform/resolvers/yup'
 
+import { DButton, DTextArea, DTextInput } from '@components/UI/atoms/client'
 import { DInputField } from '@components/UI/molecules/client'
 
 import { editProductHttp } from '@core/services/api'
 import { productEditValidation } from '@core/utils'
-import { DButton, DTextArea, DTextInput } from '@components/UI/atoms/client'
 
 const DEditFormProduct = ({ product }) => {
     // console.log(product, 'kjsfksjfskfjsk')
@@ -19,15 +19,16 @@ const DEditFormProduct = ({ product }) => {
     } = useForm({
         resolver: yupResolver(productEditValidation),
     })
-
+    const id = product.id
     const { mutate, isLodaing } = useMutation({
-        mutationFn: ({ data }) => editProductHttp({ data }),
+        mutationFn: ({ data }) => editProductHttp({ id, data }),
         onSuccess: (response) => {
             console.log(response)
         },
     })
-    const onSubmit = (data) => {
-        // mutate(data)
+    const onSubmit = (id, data) => {
+        // console.log(data)
+        mutate(id, data)
     }
     return (
         <div>

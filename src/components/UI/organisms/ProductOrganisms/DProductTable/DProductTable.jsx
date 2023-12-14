@@ -111,13 +111,16 @@ const DProductTable = () => {
     const onCloseEdit = (row) => {
         setIsShowEditModal(!isShowEditModal)
         setProduct(row.original)
-        console.log(id)
     }
     return (
         <>
             <div>{isSuccess && <MantineReactTable table={table} />}</div>
             <DeleteModal onClose={() => setIsShow(false)} isShow={isShow} id={id}></DeleteModal>
-            <DEditModal product={product} onCloseEdit={() => setIsShowEditModal(false)} isShow={isShowEditModal}></DEditModal>
+            <DEditModal
+                product={product}
+                onCloseEdit={() => setIsShowEditModal(false)}
+                isShow={isShowEditModal}
+            ></DEditModal>
         </>
     )
 }
