@@ -1,11 +1,10 @@
+import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React from 'react'
 
 const DDashboardBreadcrumbs = () => {
     let path = usePathname()
     path = path.split('/')
-    console.log(path, 'side')
 
     return (
         <div className='mb-6 font-semibold'>
