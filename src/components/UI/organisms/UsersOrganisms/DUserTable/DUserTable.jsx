@@ -13,6 +13,7 @@ import EditUserModal from './resources/components/EditUserModal/EditUserModal'
 
 const DUserTable = () => {
     const [opened, { open, close }] = useDisclosure(false)
+    const [openedEdit, { open: openEdit, close: closeEdit }] = useDisclosure(false)
     const [user, setUser] = useState({})
     const { data: users, isSuccess } = useQuery({
         queryKey: ['users'],
@@ -74,7 +75,13 @@ const DUserTable = () => {
         renderRowActions: ({ row }) => (
             <Box sx={{ display: 'flex', flexWrap: 'nowrap', gap: '8px' }}>
                 <Tooltip label='Edit'>
-                    <ActionIcon color='blue'>
+                    <ActionIcon
+                        color='blue'
+                        onClick={() => {
+                            openEdit()
+                            setUser(row.original)
+                        }}
+                    >
                         <IconEdit />
                     </ActionIcon>
                 </Tooltip>
@@ -96,7 +103,7 @@ const DUserTable = () => {
         <>
             {isSuccess && <MantineReactTable table={table} />}
             <DeleteUserModal close={close} opened={opened} user={user} />
-            <EditUserModal close={close} opened={opened} user={user} />
+            <EditUserModal closeEdit={closeEdit} openedEdit={openedEdit} user={user} />
         </>
     )
 }
