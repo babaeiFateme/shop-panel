@@ -9,6 +9,7 @@ import { IconEdit, IconTrash } from '@tabler/icons-react'
 import { usersHttp } from '@core/services/api'
 
 import { DeleteUserModal } from './resources'
+import EditUserModal from './resources/components/EditUserModal/EditUserModal'
 
 const DUserTable = () => {
     const [opened, { open, close }] = useDisclosure(false)
@@ -94,8 +95,8 @@ const DUserTable = () => {
     return (
         <>
             {isSuccess && <MantineReactTable table={table} />}
-
             <DeleteUserModal close={close} opened={opened} user={user} />
+            <EditUserModal close={close} opened={opened} user={user} />
         </>
     )
 }
