@@ -1,13 +1,18 @@
 'use client'
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useQuery } from 'react-query'
 import { ActionIcon, Box, Tooltip } from '@mantine/core'
+import { useDisclosure } from '@mantine/hooks'
 import { MantineReactTable, useMantineReactTable } from 'mantine-react-table'
 import { IconEdit, IconTrash } from '@tabler/icons-react'
 
 import { usersHttp } from '@core/services/api'
 
+import { DeleteUserModal } from './resources'
+
 const DUserTable = () => {
+    const [opened, { open, close }] = useDisclosure(false)
+    const [user, setUser] = useState({})
     const { data: users, isSuccess } = useQuery({
         queryKey: ['users'],
         queryFn: () => usersHttp(),
@@ -73,14 +78,26 @@ const DUserTable = () => {
                     </ActionIcon>
                 </Tooltip>
                 <Tooltip label='Delete'>
-                    <ActionIcon color='pink'>
+                    <ActionIcon
+                        color='pink'
+                        onClick={() => {
+                            open()
+                            setUser(row.original)
+                        }}
+                    >
                         <IconTrash />
                     </ActionIcon>
                 </Tooltip>
             </Box>
         ),
     })
-    return <div>{isSuccess && <MantineReactTable table={table} />}</div>
+    return (
+        <>
+            {isSuccess && <MantineReactTable table={table} />}
+
+            <DeleteUserModal close={close} opened={opened} user={user} />
+        </>
+    )
 }
 
 export default DUserTable
