@@ -6,6 +6,8 @@ import { useDisclosure } from '@mantine/hooks'
 import { MantineReactTable, useMantineReactTable } from 'mantine-react-table'
 import { IconEdit, IconTrash } from '@tabler/icons-react'
 
+import { DModal } from '@components/UI/atoms/client'
+
 import { usersHttp } from '@core/services/api'
 
 import { DeleteUserModal } from './resources'
@@ -103,7 +105,9 @@ const DUserTable = () => {
         <>
             {isSuccess && <MantineReactTable table={table} />}
             <DeleteUserModal close={close} opened={opened} user={user} />
-            <EditUserModal closeEdit={closeEdit} openedEdit={openedEdit} user={user} />
+            <DModal fullScreen onClose={closeEdit} opened={openedEdit} title='edit user'>
+                <EditUserModal closeEdit={closeEdit} openedEdit={openedEdit} user={user} />
+            </DModal>
         </>
     )
 }
