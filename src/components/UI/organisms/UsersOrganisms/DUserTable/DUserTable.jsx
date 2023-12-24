@@ -105,8 +105,9 @@ const DUserTable = () => {
         <>
             {isSuccess && <MantineReactTable table={table} />}
             <DeleteUserModal close={close} opened={opened} user={user} />
-            <DModal fullScreen onClose={closeEdit} opened={openedEdit} title='edit user'>
-                <EditUserModal closeEdit={closeEdit} openedEdit={openedEdit} user={user} />
+
+            <DModal onClose={closeEdit} opened={openedEdit} title='edit user'>
+                <EditUserModal user={user} closeEdit={closeEdit} />
             </DModal>
         </>
     )
