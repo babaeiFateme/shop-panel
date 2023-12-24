@@ -1,2 +1,3 @@
 import DUserTable from './DUserTable/DUserTable'
-export { DUserTable }
+import UserCreateForm from './UserCreateForm/UserCreateForm'
+export { DUserTable, UserCreateForm }

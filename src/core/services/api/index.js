@@ -4,6 +4,7 @@ import { deleteHttp } from './products/delete/delete.api'
 import editProductHttp from './products/edit/edit.api'
 import productsHttp from './products/products.api'
 import profileHttp from './profile/profile.api'
+import createUserHttp from './users/create/create.api'
 import { deleteUserHttp } from './users/delete/delete.api'
 import editUserHttp from './users/edit/edit.api'
 import usersHttp from './users/list/users.api'
@@ -16,5 +17,6 @@ export {
     editProductHttp,
     usersHttp,
     deleteUserHttp,
-    editUserHttp
+    editUserHttp,
+    createUserHttp,
 }

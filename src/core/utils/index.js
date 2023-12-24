@@ -4,11 +4,13 @@ import { loginValidation } from './validations/loginValidation'
 import { productCreateValidation } from './validations/productCreateValidation'
 import { productEditValidation } from './validations/productEditValidation'
 import { profileValidation } from './validations/profileValidation'
+import { userCreateValidation } from './validations/userCreateValidation'
 import { userEditValidation } from './validations/userEditValidation'
 export {
     ltrCacheObject,
     rtlCacheObject,
     productCreateValidation,
+    userCreateValidation,
     productEditValidation,
     loginValidation,
     profileValidation,
