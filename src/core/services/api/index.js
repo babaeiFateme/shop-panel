@@ -1,3 +1,7 @@
+import categoriesHttp from './categories/categories.api'
+import createCategoryHttp from './categories/create/create.api'
+import { deleteCategoryHttp } from './categories/delete/delete.api'
+import editCategoryHttp from './categories/edit/edit.api'
 import loginHttp from './login/login.api'
 import createProductHttp from './products/create/create.api'
 import { deleteHttp } from './products/delete/delete.api'
@@ -19,4 +23,8 @@ export {
     deleteUserHttp,
     editUserHttp,
     createUserHttp,
+    categoriesHttp,
+    editCategoryHttp,
+    createCategoryHttp,
+    deleteCategoryHttp,
 }

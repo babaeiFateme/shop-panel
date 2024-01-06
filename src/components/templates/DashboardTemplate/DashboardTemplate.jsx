@@ -1,10 +1,11 @@
 'use client'
 import React from 'react'
+import { useQuery } from 'react-query'
 import Highcharts from 'highcharts'
 import HighchartsExporting from 'highcharts/modules/exporting'
 import HighchartsReact from 'highcharts-react-official'
-import { useMutation, useQuery } from 'react-query'
-import { usersHttp } from '@core/services/api'
+
+import { productsHttp, usersHttp } from '@core/services/api'
 if (typeof Highcharts === 'object') {
     HighchartsExporting(Highcharts)
 }
@@ -12,6 +13,10 @@ const DashboardTemplate = () => {
     const users = useQuery({
         queryFn: () => usersHttp(),
         queryKey: ['usersCount'],
+    })
+    const products = useQuery({
+        queryFn: () => productsHttp(),
+        queryKey: ['productsCount'],
     })
     console.log(users.data?.length)
     const options = {
@@ -39,14 +44,14 @@ const DashboardTemplate = () => {
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6 mb-9'>
                 <div className='min-h-[150px]rounded-sm bg-primary-300 text-white flex justify-center items-center font-semibold'>
                     <div className='text-center'>
-                        <div className='text-lg'>Users</div>
+                        <div className='text-lg'>Users Count</div>
                         <div className='text-3xl'>{users.data?.length}</div>
                     </div>
                 </div>
                 <div className='min-h-[150px] rounded-sm bg-primary-900 text-white flex justify-center items-center font-semibold'>
                     <div className='text-center'>
-                        <div className='text-lg'>Products</div>
-                        <div className='text-3xl'>395</div>
+                        <div className='text-lg'>Products Count</div>
+                        <div className='text-3xl'>{products.data?.length}</div>
                     </div>
                 </div>
                 <div className='min-h-[150px] rounded-sm bg-primary-600 text-white flex justify-center items-center font-semibold'>

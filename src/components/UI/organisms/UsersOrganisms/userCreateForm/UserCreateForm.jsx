@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { Controller, useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
@@ -13,7 +14,6 @@ import { createUserHttp } from '@core/services/api'
 import { userCreateValidation } from '@core/utils'
 
 import logo from '@public/images/create.png'
-import Image from 'next/image'
 const UserCreateForm = () => {
     const route = useRouter()
 

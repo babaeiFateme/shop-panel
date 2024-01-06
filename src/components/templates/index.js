@@ -1,3 +1,4 @@
+import CategoriesTemplate from './CategoriesTemplate/CategoriesTemplate'
 import CreateProductTemplate from './CreateProductTemplate/CreateProductTemplate'
 import CreateUserTemplate from './CreateUserTmplate/CreateUserTemplate'
 import DashboardTemplate from './DashboardTemplate/DashboardTemplate'
@@ -13,4 +14,5 @@ export {
     CreateProductTemplate,
     UsersTemplate,
     CreateUserTemplate,
+    CategoriesTemplate,
 }
