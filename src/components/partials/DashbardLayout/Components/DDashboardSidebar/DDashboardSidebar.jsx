@@ -79,6 +79,16 @@ const DDashboardSidebar = ({ showSideBar }) => {
                 </li>
                 <li
                     className={`mb-6 text-white ${
+                        path[path.length - 1] == 'products' ? ' bg-primary-200 ' : ''
+                    } bg-opacity-50 p-3 rounded-lg`}
+                >
+                    <Link href='/dashboard/categories' className='flex gap-3 items-center'>
+                        <BiSolidBasket className='text-2xl' />
+                        <span className='text-lg leading-3 mt-1'>categories</span>
+                    </Link>
+                </li>
+                <li
+                    className={`mb-6 text-white ${
                         path[path.length - 1] == 'users' ? ' bg-primary-200 ' : ''
                     } bg-opacity-50 p-3 rounded-lg`}
                 >
